@@ -5,6 +5,6 @@ from django.urls import path
 app_name = CatalogConfig.name
 
 urlpatterns = [
-    path('', home_view, name='home_view'),
-    path('contacts/', contacts_view, name='contacts_view')
-    ]
+    path("", home_view, name="home_view"),
+    path("contacts/", contacts_view, name="contacts_view"),
+]
