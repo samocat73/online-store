@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-4">
+        <div class="card mt-2" style="width: 18rem;">
+            <img src="{{ product.photo|media_filter }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                <h6>{{product.price}} руб.</h6>
+                <p class="card-text"><strong>{{ product.category }}</strong></p>
+                <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-primary">К товару</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+Как мне тут применить flex контейнер?
