@@ -13,7 +13,7 @@ class Product(models.Model):
         blank=True,
         null=True,
     )
-    photo = models.ImageField(upload_to="photos/", verbose_name="Фотография")
+    photo = models.ImageField(upload_to="catalog/photo/", verbose_name="Фотография")
     category = models.ForeignKey(
         "Category", on_delete=models.CASCADE, related_name="products"
     )
