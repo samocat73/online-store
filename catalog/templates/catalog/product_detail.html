@@ -6,14 +6,14 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="{{ product.photo|media_filter }}" class="img-fluid rounded-start" alt="...">
+                    <img src="{{ object.photo|media_filter }}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title mb-4">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <h1><u>{{product.price}} руб.</u></h1>
-                        <h5><strong>{{ product.category }}</strong></h5>
+                        <h5 class="card-title mb-4">{{ object.name }}</h5>
+                        <p class="card-text">{{ object.description }}</p>
+                        <h1><u>{{object.price}} руб.</u></h1>
+                        <h5><strong>{{ object.category }}</strong></h5>
                         <a href="{% url 'catalog:home_view' %}" class="btn btn-primary mt-2">Назад</a>
                     </div>
                 </div>
