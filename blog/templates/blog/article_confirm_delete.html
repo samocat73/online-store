@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-center align-items-center">
     <form method="post" class="" enctype="multipart/form-data">
         <div class="card">
-          <p class="card-text mx-4 mt-3">Действительно хотите удалить статью "{{ article.title }}"?</p>
+            <p class="card-text mx-4 mt-3">Действительно хотите удалить статью "{{ article.title }}"?</p>
             <div class="card-body">
                 {% csrf_token %}
                 {{ form.as_p }}

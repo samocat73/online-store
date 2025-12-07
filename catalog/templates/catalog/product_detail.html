@@ -15,6 +15,8 @@
                         <h1><u>{{object.price}} руб.</u></h1>
                         <h5><strong>{{ object.category }}</strong></h5>
                         <a href="{% url 'catalog:home_view' %}" class="btn btn-primary mt-2">Назад</a>
+                        <a href="{% url 'catalog:product_update' object.pk %}" class="btn btn-outline-primary mt-2">Редактировать</a>
+                        <a href="{% url 'catalog:product_delete' object.pk %}" class="btn btn-outline-danger mt-2">Удалить</a>
                     </div>
                 </div>
             </div>
