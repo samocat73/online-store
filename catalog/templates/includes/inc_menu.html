@@ -1,7 +1,9 @@
-<h5 class="my-0 mr-md-auto font-weight-normal">Техника Дома</h5>
+<h5 class="my-0 mr-md-auto font-weight-normal">ТехникаДома</h5>
 <nav class="ms-5">
     <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:home_view' %}">Каталог</a>
     <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:contacts_view' %}">Контакты</a>
     <a class="p-2 btn btn-primary" href="{% url 'blog:article_list' %}">Блог</a>
     <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Добавить продукт</a>
+    <a class="p-2 btn btn-success" href="{% url 'users:login' %}">Вход</a>
+    <a class="p-2 btn btn-outline-success" href="{% url 'users:register' %}">Регистрация</a>
 </nav>

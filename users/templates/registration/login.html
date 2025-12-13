@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    <div class="card mx-auto w-50" >
+        <div class="card-header">
+            <h2>Вход</h2>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <div class="d-grid gap-2 mb-2 mx-2">
+            <button class="btn btn-primary" type="submit">Войти</button>
+            <a href="{% url 'catalog:home_view' %}" class="btn btn-outline-primary">Отменить</a>
+        </div>
+    </div>
+</form>
+{% endblock %}
