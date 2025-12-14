@@ -1,6 +1,7 @@
-from django.forms import ModelForm
-from catalog.models import Product
 from django.core.exceptions import ValidationError
+from django.forms import BooleanField, ModelForm
+
+from catalog.models import Product
 
 FORBIDDEN_WORDS = [
     "казино",
@@ -15,18 +16,20 @@ FORBIDDEN_WORDS = [
 ]
 
 
-class ProductForm(ModelForm):
-    class Meta:
-        model = Product
-        fields = "__all__"
-
+class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["name"].widget.attrs.update({"class": "form-control"})
-        self.fields["description"].widget.attrs.update({"class": "form-control"})
-        self.fields["photo"].widget.attrs.update({"class": "form-control"})
-        self.fields["category"].widget.attrs.update({"class": "form-select"})
-        self.fields["price"].widget.attrs.update({"class": "form-control"})
+        for fild in self.fields.values():
+            if isinstance(fild, BooleanField):
+                fild.widget.attrs.update({"class": "form-check-input"})
+            else:
+                fild.widget.attrs.update({"class": "form-control"})
+
+
+class ProductForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        exclude = ("owner",)
 
     def clean_price(self):
         price = super().clean()["price"]
@@ -47,3 +50,9 @@ class ProductForm(ModelForm):
             if word in name.lower():
                 raise ValidationError("Нельзя вводить запрещенные слова")
         return name
+
+
+class ProductFormLimited(ProductForm):
+    class Meta:
+        model = Product
+        exclude = ("publication_status", "owner")
