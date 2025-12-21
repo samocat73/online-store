@@ -9,6 +9,7 @@
     <li><a href="{% url 'catalog:product_create' %}" class="nav-link px-2">Добавить продукт</a></li>
     {% endif %}
 </ul>
+
 <div class="col-md-3 text-end">
     {% if user.is_authenticated %}
     <form action="{% url 'users:logout' %}" method="post">

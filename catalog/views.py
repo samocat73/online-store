@@ -1,13 +1,16 @@
-from django.contrib.auth.mixins import (LoginRequiredMixin,
-                                        PermissionRequiredMixin)
+from django.contrib.auth.mixins import (LoginRequiredMixin, )
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 from catalog.forms import ProductForm, ProductFormLimited
-from catalog.models import Product
+from catalog.models import Product, Category
+
+from catalog.services import products_by_category
 
 
 class ContactView(TemplateView):
@@ -17,7 +20,15 @@ class ContactView(TemplateView):
 class ProductListView(ListView):
     model = Product
 
+    def get_queryset(self):
+        queryset = cache.get('product_list')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('product_list', queryset, 60 * 15)
+        return queryset
 
+
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
 
@@ -46,7 +57,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         if obj.owner == self.request.user or self.request.user.has_perm(
-            "can_unpublish_product"
+                "can_unpublish_product"
         ):
             return obj
         else:
@@ -60,8 +71,22 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         if obj.owner == self.request.user or self.request.user.has_perm(
-            "catalog.delete_product"
+                "catalog.delete_product"
         ):
             return obj
         else:
             raise PermissionDenied
+
+
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = "categories"
+
+
+class ProductByCategory(ListView):
+    model = Product
+
+    def get_queryset(self):
+        print(self.kwargs.get('pk'))
+        print(products_by_category(self.kwargs.get('pk')))
+        return products_by_category(self.kwargs.get('pk'))

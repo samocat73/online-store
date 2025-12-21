@@ -112,3 +112,10 @@ LOGIN_REDIRECT_URL = "catalog:home_view"
 LOGOUT_REDIRECT_URL = "catalog:home_view"
 
 LOGIN_URL = "users:login"
+
+CASHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1"
+    }
+}
