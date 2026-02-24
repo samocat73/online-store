@@ -1,0 +1,16 @@
+{% extends 'base_block.html' %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" class="" enctype="multipart/form-data">
+        <div class="card">
+            <p class="card-text mx-4 mt-3">Действительно хотите удалить статью "{{ article.title }}"?</p>
+            <div class="card-body">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary mb-3 mx-4">Удалить</button>
+            <a class="btn btn-primary mx-4 mb-3" href="{% url 'blog:article_detail' article.pk %}" role="button">Отменить</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

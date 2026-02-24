@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card mx-auto text-center" style="width: 30rem;">
+        <div class="card-body">
+            <h5 class="card-title">Вы действительно хотите удалить продукт?</h5>
+            <button type="submit" class="btn btn-outline-danger">Удалить</button>
+            <a href="{% url 'catalog:home_view' %}" class="btn btn-primary">Отменить</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

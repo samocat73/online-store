@@ -1,0 +1,23 @@
+<div class="col-md-3 mb-2 mb-md-0">
+    <h3>ТехникаДома</h3>
+</div>
+<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li><a href="{% url 'catalog:home_view' %}" class="nav-link px-2">Каталог</a></li>
+    <li><a href="{% url 'blog:article_list' %}" class="nav-link px-2">Блог</a></li>
+    <li><a href="{% url 'catalog:contacts_view' %}" class="nav-link px-2">Контакты</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'catalog:product_create' %}" class="nav-link px-2">Добавить продукт</a></li>
+    {% endif %}
+</ul>
+
+<div class="col-md-3 text-end">
+    {% if user.is_authenticated %}
+    <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-primary me-2">Выйти</button>
+    </form>
+    {% else %}
+    <a class="btn btn-outline-primary me-2" href="{% url 'users:login' %}">Войти</a>
+    <a class="btn btn-primary me-2" href="{% url 'users:register' %}">Регистрация</a>
+    {% endif %}
+</div>
