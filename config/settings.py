@@ -89,8 +89,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
-
 STATICFILES_DIRS = (BASE_DIR / "static",)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -116,6 +116,6 @@ LOGIN_URL = "users:login"
 CASHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1"
+        "LOCATION": os.getenv("REDIS_CACHE_URL")
     }
 }
