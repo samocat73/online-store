@@ -31,10 +31,11 @@ jobs:
       - name: Run migrate
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          NAME: postgres
-          USER: postgres
-          PASSWORD: 123456
-          PORT: 5432
+          DB_HOST: postgres
+          DB_NAME: postgres
+          DB_USER: postgres
+          DB_PASSWORD: 123456
+          DB_PORT: 5432
         run: poetry run python manage.py migrate
 
       - name: Run tests
