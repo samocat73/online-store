@@ -29,6 +29,13 @@ jobs:
           poetry install --no-root
 
       - name: Run migrate
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          NAME: postgres
+          USER: postgres
+          PASSWORD: 123456
+          HOST: localhost
+          PORT: 5432
         run: poetry run python manage.py migrate
 
       - name: Run tests
